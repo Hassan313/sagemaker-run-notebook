@@ -603,7 +603,10 @@ def _compile_pattern(pat, ignore_case=True):
     else:
         res = _translate_glob(pat)
     flags = re.IGNORECASE if ignore_case else 0
-    return re.compile(res, flags=flags).match
+    
+    if ignore_case:
+        res = "(?i)" + res
+    return re.compile(res).match
 
 
 def _iexplode_path(path):
